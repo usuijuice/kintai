@@ -2,23 +2,37 @@
   "name": "kintai",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prepare": "vp config",
+    "dev:vinext": "vinext dev",
+    "build:vinext": "vinext build",
+    "start:vinext": "vinext start"
   },
   "dependencies": {
     "next": "16.2.4",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.35.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitejs/plugin-rsc": "^0.5.25",
     "babel-plugin-react-compiler": "1.0.0",
+    "react-server-dom-webpack": "^19.2.5",
     "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+    "typescript": "^5",
+    "vinext": "^0.0.47",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "wrangler": "^4.87.0"
+  },
+  "packageManager": "pnpm@10.33.3"
 }
