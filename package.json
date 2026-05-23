@@ -10,7 +10,9 @@
     "prepare": "vp config",
     "dev:vinext": "vinext dev",
     "build:vinext": "vinext build",
-    "start:vinext": "vinext start"
+    "start:vinext": "vinext start",
+    "db:migrate:local": "wrangler d1 migrations apply kintai-db --local",
+    "db:migrate": "wrangler d1 migrations apply kintai-db --remote"
   },
   "dependencies": {
     "next": "16.2.4",

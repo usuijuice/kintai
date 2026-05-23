@@ -12,4 +12,18 @@
   "images": {
     "binding": "IMAGES",
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kintai-db",
+      "database_id": "479dfc95-38e3-4736-b6f9-1d9e9cdc6cd4",
+      "migrations_dir": "migrations",
+    },
+    {
+      "binding": "kintai_db",
+      "database_name": "kintai-db",
+      "database_id": "479dfc95-38e3-4736-b6f9-1d9e9cdc6cd4",
+      "remote": true,
+    },
+  ],
 }
