@@ -56,3 +56,29 @@ export async function PATCH(request: Request): Promise<Response> {
     return Response.json({ error: errorMsg }, { status: 500 });
   }
 }
+
+export async function DELETE(request: Request): Promise<Response> {
+  try {
+    const body = (await request.json()) as { date?: string };
+    const { date } = body;
+
+    if (!date || !isValidDate(date)) {
+      return Response.json({ error: "invalid date" }, { status: 400 });
+    }
+
+    const existing = await env.DB.prepare("SELECT date FROM attendance WHERE date = ?")
+      .bind(date)
+      .first<{ date: string }>();
+
+    if (!existing) {
+      return Response.json({ error: "not found" }, { status: 404 });
+    }
+
+    await env.DB.prepare("DELETE FROM attendance WHERE date = ?").bind(date).run();
+
+    return Response.json({ date });
+  } catch (e) {
+    const errorMsg = e instanceof Error ? e.message : "unknown error";
+    return Response.json({ error: errorMsg }, { status: 500 });
+  }
+}

@@ -157,6 +157,30 @@ export function AttendanceApp({ initialMonth }: { initialMonth: string }) {
     }
   };
 
+  const handleDelete = async () => {
+    if (!editing) return;
+    if (!confirm("この勤怠記録を削除しますか？")) return;
+    setLoading(true);
+    setEditError(null);
+    try {
+      const res = await fetch("/api/attendance/edit", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date: editing.date }),
+      });
+      if (!res.ok) {
+        const j = (await res.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(j?.error ?? `HTTP ${res.status}`);
+      }
+      await fetchMonth(month);
+      setEditing(null);
+    } catch (e) {
+      setEditError(e instanceof Error ? e.message : "delete failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleEditCancel = () => {
     setEditing(null);
     setEditError(null);
@@ -364,6 +388,14 @@ export function AttendanceApp({ initialMonth }: { initialMonth: string }) {
                 className="flex-1 px-4 py-2 rounded-md border border-zinc-300 dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-40"
               >
                 キャンセル
+              </button>
+              <button
+                type="button"
+                onClick={handleDelete}
+                disabled={loading}
+                className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 disabled:opacity-40"
+              >
+                削除
               </button>
               <button
                 type="button"
